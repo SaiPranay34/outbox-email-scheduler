@@ -1,0 +1,14 @@
+# Secrets and local configuration
+backend/.env
+*.env.local
+
+# Installed dependencies and generated builds
+**/node_modules/
+backend/dist/
+frontend/dist/
+frontend/*.tsbuildinfo
+
+# Local/editor files
+.DS_Store
+Thumbs.db
+.vscode/

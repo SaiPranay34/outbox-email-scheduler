@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: outbox
+      POSTGRES_PASSWORD: outbox
+      POSTGRES_DB: outbox
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U outbox"]
+      interval: 5s
+      retries: 20
+  redis:
+    image: redis:7.4-alpine
+    command: redis-server --appendonly yes --appendfsync always --maxmemory-policy noeviction
+    ports: ["127.0.0.1:6379:6379"]
+    volumes: ["redis-data:/data"]
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.3
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ports: ["127.0.0.1:9200:9200"]
+    volumes: ["elastic-data:/usr/share/elasticsearch/data"]
+volumes:
+  postgres-data:
+  redis-data:
+  elastic-data:

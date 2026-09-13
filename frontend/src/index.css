@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@theme {
+  --color-brand: #00a63e;
+  --color-mint: #e5f5ec;
+  --color-soft: #f5f7f6;
+}
+@layer base {
+  body {
+    @apply m-0 bg-white text-slate-800 antialiased;
+    font-family: Inter, Arial, sans-serif;
+  }
+  button,
+  a,
+  input,
+  textarea {
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand;
+  }
+  button,
+  a {
+    @apply cursor-pointer;
+  }
+  button:disabled {
+    @apply cursor-wait opacity-50;
+  }
+}
+@layer components {
+  .field {
+    @apply w-full rounded-lg bg-soft px-4 py-3 text-sm outline-none focus:ring-1 focus:ring-brand;
+  }
+  .button {
+    @apply rounded-lg bg-brand px-5 py-2 text-sm text-white hover:brightness-95;
+  }
+  .outline-button {
+    @apply rounded-full border border-brand px-4 py-1 text-xs text-brand hover:bg-mint;
+  }
+}
